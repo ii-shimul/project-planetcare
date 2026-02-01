@@ -10,8 +10,8 @@ const Testimonials = () => {
 				<div className="grid md:grid-cols-2 gap-8">
 					<div className="bg-background-light p-8 rounded-lg shadow-md">
 						<p className="text-subtext-light italic">
-							"Being part of EcoSync has been a truly rewarding experience. I've
-							met amazing people and learned so much about how I can make a
+							"Being part of PlanetCare has been a truly rewarding experience.
+							I've met amazing people and learned so much about how I can make a
 							difference. The tree planting event was my favorite!"
 						</p>
 						<div className="flex items-center mt-4">
@@ -33,7 +33,7 @@ const Testimonials = () => {
 					<div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md">
 						<p className="text-subtext-light italic">
 							"I never realized how much waste ends up on our beaches until I
-							joined a cleanup. It was eye-opening. EcoSync makes it easy and
+							joined a cleanup. It was eye-opening. PlanetCare makes it easy and
 							fun to get involved in local environmental action."
 						</p>
 						<div className="flex items-center mt-4">
