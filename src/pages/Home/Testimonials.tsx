@@ -53,6 +53,44 @@ const Testimonials = () => {
 						</div>
 					</div>
 				</div>
+				<div className="grid md:grid-cols-2 gap-8 mt-8">
+					<div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md">
+						<p className="text-subtext-light italic">
+							"Transparency is key for me when I donate. PlanetCare provides
+							detailed reports on how every dollar is spent, which gives me huge
+							peace of mind. Truly a professional team."
+						</p>
+						<div className="flex items-center mt-4">
+							<div className="w-12 h-12 rounded-full mr-4 bg-green-100 flex items-center justify-center text-green-700 font-bold text-xl">
+								DK
+							</div>
+							<div>
+								<p className="font-semibold text-text-light dark:text-text-dark">
+									David Kim
+								</p>
+								<p className="text-sm text-subtext-light">Donor since 2021</p>
+							</div>
+						</div>
+					</div>
+					<div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md">
+						<p className="text-subtext-light italic">
+							"The educational workshops was fantastic! My kids learned so much
+							about recycling and composting. We've started our own garden
+							thanks to PlanetCare's guidance."
+						</p>
+						<div className="flex items-center mt-4">
+							<div className="w-12 h-12 rounded-full mr-4 bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl">
+								SL
+							</div>
+							<div>
+								<p className="font-semibold text-text-light dark:text-text-dark">
+									Sarah Lopez
+								</p>
+								<p className="text-sm text-subtext-light">Community Member</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	);

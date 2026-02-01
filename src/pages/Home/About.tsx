@@ -1,4 +1,3 @@
-
 const About = () => {
 	return (
 		<section
@@ -51,6 +50,24 @@ const About = () => {
 							supported by sustainable practices.
 						</p>
 					</div>
+				</div>
+
+				<div className="mt-16 bg-white p-8 rounded-2xl shadow-sm text-left">
+					<h3 className="text-2xl font-bold text-primary mb-4">
+						Why We Started
+					</h3>
+					<p className="text-lg text-subtext-light dark:text-subtext-dark leading-relaxed">
+						PlanetCare began with a simple idea: that small, consistent actions
+						by a dedicated community can lead to massive global change. What
+						started as a neighborhood cleanup group has grown into a worldwide
+						movement. We believe that everyone has a role to play in preserving
+						our environment. By connecting passion with opportunity, we bridge
+						the gap between "wanting to help" and "making a difference." Our
+						approach is rooted in transparency, collaboration, and scientific
+						impact. Every event we organize and every dollar we raise is
+						directed towards tangible, measurable outcomes that benefit both
+						people and the planet.
+					</p>
 				</div>
 			</div>
 		</section>

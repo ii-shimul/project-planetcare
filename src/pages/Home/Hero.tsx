@@ -30,6 +30,24 @@ const Hero = () => {
 						Donate Now
 					</Link>
 				</div>
+				<div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-white/80 text-sm max-w-4xl">
+					<div className="flex flex-col items-center">
+						<span className="font-bold text-white text-lg">50K+</span>
+						<span>Active Volunteers</span>
+					</div>
+					<div className="flex flex-col items-center">
+						<span className="font-bold text-white text-lg">10M+</span>
+						<span>Trees Planted</span>
+					</div>
+					<div className="flex flex-col items-center">
+						<span className="font-bold text-white text-lg">100%</span>
+						<span>Non-Profit</span>
+					</div>
+					<div className="flex flex-col items-center">
+						<span className="font-bold text-white text-lg">Global</span>
+						<span>Reach</span>
+					</div>
+				</div>
 			</div>
 		</section>
 	);
