@@ -21,6 +21,8 @@ import MyEvents from "../pages/DashboardComponents/User/MyEvents";
 import MyDonations from "../pages/DashboardComponents/User/MyDonations";
 import Profile from "../pages/DashboardComponents/User/Profile";
 import Contact from "../pages/Contact/Contact";
+import Leaderboard from "../pages/Leaderboard/Leaderboard";
+import Donors from "../pages/Donors/Donors";
 
 const router = createBrowserRouter([
 	{
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
 			{
 				path: "/contact",
 				element: <Contact />,
+			},
+			{
+				path: "/leaderboard",
+				element: <Leaderboard />,
+			},
+			{
+				path: "/donors",
+				element: <Donors />,
 			},
 			{
 				path: "/donate",

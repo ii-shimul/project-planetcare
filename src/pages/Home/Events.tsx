@@ -11,6 +11,7 @@ export type Event = {
 	location: string;
 	date: Date;
 	volunteers: Array<string>;
+	image?: string;
 };
 
 const Events = () => {

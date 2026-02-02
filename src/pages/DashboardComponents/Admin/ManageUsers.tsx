@@ -11,8 +11,8 @@ import {
 	Tag,
 	message,
 	Popconfirm,
-	Spin,
 } from "antd";
+import DashboardSkeleton from "../../../components/DashboardSkeleton";
 import {
 	EditOutlined,
 	DeleteOutlined,
@@ -187,11 +187,7 @@ const ManageUsers = () => {
 	];
 
 	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-64">
-				<Spin size="large" />
-			</div>
-		);
+		return <DashboardSkeleton />;
 	}
 
 	return (

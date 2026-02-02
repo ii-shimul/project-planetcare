@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Table, Tag, Spin, Empty, Card, Statistic, Row, Col } from "antd";
+import { Table, Tag, Empty, Card, Statistic, Row, Col } from "antd";
+import DashboardSkeleton from "../../../components/DashboardSkeleton";
 import { DollarOutlined, CalendarOutlined } from "@ant-design/icons";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -92,11 +93,7 @@ const MyDonations = () => {
 	];
 
 	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-64">
-				<Spin size="large" />
-			</div>
-		);
+		return <DashboardSkeleton />;
 	}
 
 	return (

@@ -9,7 +9,12 @@ import {
 	Divider,
 	message,
 } from "antd";
-import { UserOutlined, LockOutlined, GoogleOutlined } from "@ant-design/icons";
+import {
+	UserOutlined,
+	LockOutlined,
+	GoogleOutlined,
+	SafetyOutlined,
+} from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
@@ -18,12 +23,12 @@ const { Title } = Typography;
 
 type LoginFormValues = { email: string; password: string; remember?: boolean };
 
-
 const Login = () => {
 	const { logInGoogle, logIn } = useAuth();
 	const axiosPublic = useAxios();
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
+	const [form] = Form.useForm();
 
 	// login with email and pass
 	const onFinish = async (values: LoginFormValues) => {
@@ -62,6 +67,15 @@ const Login = () => {
 		}
 	};
 
+	// fill admin credentials for reviewers
+	const handleAdminLogin = () => {
+		form.setFieldsValue({
+			email: "admin@planetcare.com",
+			password: "planetcare",
+		});
+		message.info("Admin credentials filled. Click Login to continue.");
+	};
+
 	return (
 		<div className="flex justify-center items-center py-5 bg-[#f0f2f5] w-full min-h-[calc(100vh-277px)] max-sm:px-3.5">
 			<Card
@@ -74,6 +88,7 @@ const Login = () => {
 					<Title level={2}>Login</Title>
 				</div>
 				<Form
+					form={form}
 					name="login_form"
 					initialValues={{ remember: true }}
 					onFinish={onFinish}
@@ -133,9 +148,25 @@ const Login = () => {
 				<Button
 					size="large"
 					block
+					onClick={handleAdminLogin}
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						backgroundColor: "#f59e0b",
+						borderColor: "#f59e0b",
+						color: "#fff",
+					}}
+				>
+					<SafetyOutlined style={{ fontSize: "18px", marginRight: "8px" }} />
+					Login as Admin (Reviewer)
+				</Button>
+				<Button
+					size="large"
+					block
 					onClick={handleGoogleLogIn}
 					style={{
-						marginBottom: "24px",
+						marginBottom: "12px",
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",

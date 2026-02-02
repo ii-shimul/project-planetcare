@@ -11,8 +11,8 @@ import {
 	Tag,
 	message,
 	Popconfirm,
-	Spin,
 } from "antd";
+import DashboardSkeleton from "../../../components/DashboardSkeleton";
 import {
 	EditOutlined,
 	DeleteOutlined,
@@ -34,6 +34,7 @@ type Event = {
 	date: string;
 	volunteers: string[];
 	createdBy: string;
+	image?: string;
 };
 
 const ManageEvents = () => {
@@ -114,6 +115,7 @@ const ManageEvents = () => {
 			description: event.description,
 			location: event.location,
 			date: dayjs(event.date),
+			image: event.image || "",
 		});
 		setIsModalOpen(true);
 	};
@@ -130,6 +132,7 @@ const ManageEvents = () => {
 			description: values.description,
 			location: values.location,
 			date: values.date.toISOString(),
+			image: values.image || "/event-images/tree-planting.png",
 			createdBy: user?.email,
 		};
 
@@ -243,11 +246,7 @@ const ManageEvents = () => {
 	];
 
 	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-64">
-				<Spin size="large" />
-			</div>
-		);
+		return <DashboardSkeleton />;
 	}
 
 	return (
@@ -348,6 +347,9 @@ const ManageEvents = () => {
 							className="w-full"
 							placeholder="Select date and time"
 						/>
+					</Form.Item>
+					<Form.Item label="Image URL (optional)" name="image">
+						<Input placeholder="Enter image URL or leave blank for default" />
 					</Form.Item>
 					<Form.Item className="mb-0 text-right">
 						<Space>

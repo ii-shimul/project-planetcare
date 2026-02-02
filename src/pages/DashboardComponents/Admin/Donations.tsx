@@ -11,6 +11,7 @@ import {
 	Spin,
 	DatePicker,
 } from "antd";
+import DashboardSkeleton from "../../../components/DashboardSkeleton";
 import {
 	SearchOutlined,
 	DollarOutlined,
@@ -142,11 +143,7 @@ const Donations = () => {
 	];
 
 	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-64">
-				<Spin size="large" />
-			</div>
-		);
+		return <DashboardSkeleton />;
 	}
 
 	return (

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, Row, Col, Statistic, Spin, Table, Tag, Empty } from "antd";
+import { Card, Row, Col, Statistic, Table, Tag, Empty } from "antd";
+import DashboardSkeleton from "../../../components/DashboardSkeleton";
 import {
 	CalendarOutlined,
 	DollarOutlined,
@@ -133,11 +134,7 @@ const UserOverview = () => {
 	];
 
 	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-64">
-				<Spin size="large" />
-			</div>
-		);
+		return <DashboardSkeleton />;
 	}
 
 	return (

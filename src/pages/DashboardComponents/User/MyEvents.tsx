@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Table, Tag, Spin, Empty, Card, Input } from "antd";
+import { Table, Tag, Empty, Card, Input } from "antd";
+import DashboardSkeleton from "../../../components/DashboardSkeleton";
 import {
 	CalendarOutlined,
 	EnvironmentOutlined,
@@ -107,11 +108,7 @@ const MyEvents = () => {
 	];
 
 	if (isLoading) {
-		return (
-			<div className="flex justify-center items-center h-64">
-				<Spin size="large" />
-			</div>
-		);
+		return <DashboardSkeleton />;
 	}
 
 	return (
