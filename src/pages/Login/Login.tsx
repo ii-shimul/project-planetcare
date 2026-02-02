@@ -154,6 +154,7 @@ const Login = () => {
 						alignItems: "center",
 						justifyContent: "center",
 						backgroundColor: "#f59e0b",
+						marginBottom: "12px",
 						borderColor: "#f59e0b",
 						color: "#fff",
 					}}
@@ -166,7 +167,6 @@ const Login = () => {
 					block
 					onClick={handleGoogleLogIn}
 					style={{
-						marginBottom: "12px",
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
