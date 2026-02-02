@@ -7,6 +7,7 @@ import {
 	LogoutOutlined,
 } from "@ant-design/icons";
 import { JSX } from "react";
+import useUserRole from "../../hooks/useUserRole";
 const links: JSX.Element = (
 	<>
 		<li>
@@ -54,12 +55,17 @@ const links: JSX.Element = (
 
 const NavBar = () => {
 	const { user, logOut } = useAuth();
+	const { isAdmin } = useUserRole();
 	const menu = (
 		<Menu
 			items={[
 				{
 					key: "1",
-					label: <Link to={"/dashboard"}>Dashboard</Link>,
+					label: (
+						<Link to={`${isAdmin ? "/dashboard" : "/my-dashboard"}`}>
+							Dashboard
+						</Link>
+					),
 					icon: <DashboardOutlined />,
 				},
 				{
@@ -90,21 +96,20 @@ const NavBar = () => {
 				<ul className="flex items-center gap-7 md:text-lg">{links}</ul>
 			</div>
 			<div className="flex items-center gap-2">
-				{user?.email ? (
+				{user?.email ?
 					<Dropdown overlay={menu} trigger={["click"]}>
 						<Space>
 							<Avatar
 								size="default"
 								style={{ backgroundColor: "#003E30", cursor: "pointer" }}
 							>
-								{typeof user?.displayName === "string" && user.displayName[0]
-									? user.displayName[0]
-									: "U"}
+								{typeof user?.displayName === "string" && user.displayName[0] ?
+									user.displayName[0]
+								:	"U"}
 							</Avatar>
 						</Space>
 					</Dropdown>
-				) : (
-					<>
+				:	<>
 						<Link to={"/login"}>
 							<Button>Login</Button>
 						</Link>
@@ -117,7 +122,7 @@ const NavBar = () => {
 							</Button>
 						</Link>
 					</>
-				)}
+				}
 			</div>
 		</nav>
 	);
