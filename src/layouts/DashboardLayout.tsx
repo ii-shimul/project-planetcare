@@ -65,7 +65,6 @@ const DashboardLayout = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	return (
 		<Layout style={{ minHeight: "100vh" }}>
-			{/* Sidebar */}
 			<Sider
 				collapsible
 				collapsed={collapsed}
@@ -76,15 +75,14 @@ const DashboardLayout = () => {
 				style={{ backgroundColor: "#003E30" }}
 			>
 				<div style={{ padding: "16px", textAlign: "center" }}>
-					{collapsed ? (
+					{collapsed ?
 						<span className="text-white">
 							<DashboardOutlined />
 						</span>
-					) : (
-						<Title level={4} style={{ color: "#fff", margin: 0 }}>
+					:	<Title level={4} style={{ color: "#fff", margin: 0 }}>
 							Dashboard
 						</Title>
-					)}
+					}
 				</div>
 				<Menu
 					theme="dark"
@@ -96,7 +94,6 @@ const DashboardLayout = () => {
 			</Sider>
 
 			<Layout>
-				{/* Header */}
 				<Header
 					style={{
 						backgroundColor: "#fff",
@@ -107,13 +104,16 @@ const DashboardLayout = () => {
 					<Title level={3} style={{ margin: 0, lineHeight: "64px" }}>
 						{
 							menuItems.find(
-								(item) => item && "key" in item && item.key === selectedKey
+								(item): item is MenuItem & { label: React.ReactNode } =>
+									item !== null &&
+									"key" in item &&
+									"label" in item &&
+									item.key === selectedKey,
 							)?.label
 						}
 					</Title>
 				</Header>
 
-				{/* Content */}
 				<Content style={{ margin: "16px 16px", backgroundColor: "#f0f2f5" }}>
 					<div
 						style={{ padding: 16, backgroundColor: "#ffff", borderRadius: 8 }}

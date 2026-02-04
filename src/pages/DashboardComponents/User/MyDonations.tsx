@@ -100,7 +100,6 @@ const MyDonations = () => {
 		<div>
 			<h2 className="text-2xl font-bold text-gray-800 mb-6">My Donations</h2>
 
-			{/* Stats */}
 			<Row gutter={[16, 16]} className="mb-6">
 				<Col xs={24} sm={8}>
 					<Card>
@@ -135,7 +134,6 @@ const MyDonations = () => {
 				</Col>
 			</Row>
 
-			{/* Donations Table */}
 			<Card>
 				{myDonations.length > 0 ?
 					<Table

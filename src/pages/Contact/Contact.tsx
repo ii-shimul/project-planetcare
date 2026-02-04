@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Header from "../../components/Header/Header";
-
 import { Form, Input, Typography, message } from "antd";
+import { motion, useInView } from "framer-motion";
+import { staggerContainer, fadeUp, fadeUpSmall } from "../../animations";
 
 const { Text } = Typography;
 
 const Contact = () => {
 	const [form] = Form.useForm();
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+	const formRef = useRef(null);
+	const infoRef = useRef(null);
+	const formInView = useInView(formRef, { once: true, margin: "-50px" });
+	const infoInView = useInView(infoRef, { once: true, margin: "-50px" });
+
 	const handleSubmit = (values: any) => {
 		setIsSubmitting(true);
 		setTimeout(() => {
@@ -25,131 +31,158 @@ const Contact = () => {
 			<section className="py-20 ">
 				<div className="max-w-7xl mx-auto px-6">
 					<div className="grid md:grid-cols-2 gap-8 items-start">
-						<div className="px-8 rounded-lg shadow-lg">
-							<h2 className="text-3xl font-bold text-primary mb-6">
-								Send Us a Message
-							</h2>
-							<Form
-								form={form}
-								onFinish={handleSubmit}
-								layout="vertical"
-								className="space-y-4"
+						<motion.div
+							className="px-8 rounded-lg shadow-lg"
+							ref={formRef}
+							initial="hidden"
+							animate={formInView ? "visible" : "hidden"}
+							variants={staggerContainer}
+						>
+							<motion.h2
+								className="text-3xl font-bold text-primary mb-6"
+								variants={fadeUp}
 							>
-								<Form.Item
-									label={
-										<Text
-											strong
-											style={{
-												fontFamily: "sora",
-												fontSize: "0.875rem",
-												color: "#6B7280",
-												marginBottom: "0.5rem",
-											}}
-										>
-											Full Name
-										</Text>
-									}
-									name="name"
-									rules={[
-										{ required: true, message: "Please enter your full name!" },
-									]}
+								Send Us a Message
+							</motion.h2>
+							<motion.div variants={fadeUp}>
+								<Form
+									form={form}
+									onFinish={handleSubmit}
+									layout="vertical"
+									className="space-y-4"
 								>
-									<Input
-										id="name"
-										placeholder="John Doe"
-										type="text"
-										className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</Form.Item>
+									<Form.Item
+										label={
+											<Text
+												strong
+												style={{
+													fontFamily: "sora",
+													fontSize: "0.875rem",
+													color: "#6B7280",
+													marginBottom: "0.5rem",
+												}}
+											>
+												Full Name
+											</Text>
+										}
+										name="name"
+										rules={[
+											{
+												required: true,
+												message: "Please enter your full name!",
+											},
+										]}
+									>
+										<Input
+											id="name"
+											placeholder="John Doe"
+											type="text"
+											className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+										/>
+									</Form.Item>
 
-								<Form.Item
-									label={
-										<Text
-											strong
-											style={{
-												fontFamily: "sora",
-												fontSize: "0.875rem",
-												color: "#6B7280",
-												marginBottom: "0.5rem",
-											}}
+									<Form.Item
+										label={
+											<Text
+												strong
+												style={{
+													fontFamily: "sora",
+													fontSize: "0.875rem",
+													color: "#6B7280",
+													marginBottom: "0.5rem",
+												}}
+											>
+												Email Address
+											</Text>
+										}
+										name="email"
+										rules={[
+											{ required: true, message: "Please enter your email!" },
+											{ type: "email", message: "Please enter a valid email!" },
+										]}
+									>
+										<Input
+											id="email"
+											placeholder="you@example.com"
+											type="email"
+											className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+										/>
+									</Form.Item>
+
+									<Form.Item
+										label={
+											<Text
+												strong
+												style={{
+													fontFamily: "sora",
+													fontSize: "0.875rem",
+													color: "#6B7280",
+													marginBottom: "0.5rem",
+												}}
+											>
+												Subject
+											</Text>
+										}
+										name="subject"
+										rules={[
+											{ required: true, message: "Please enter a subject!" },
+										]}
+									>
+										<Input
+											id="subject"
+											placeholder="Question about an event"
+											type="text"
+											className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+										/>
+									</Form.Item>
+
+									<Form.Item
+										label={
+											<Text
+												strong
+												style={{
+													fontFamily: "sora",
+													fontSize: "0.875rem",
+													color: "#6B7280",
+													marginBottom: "0.5rem",
+												}}
+											>
+												Message
+											</Text>
+										}
+										name="message"
+									>
+										<Input.TextArea
+											id="message"
+											placeholder="Your message here..."
+											rows={5}
+											className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+										/>
+									</Form.Item>
+
+									<Form.Item className="text-right">
+										<motion.button
+											disabled={isSubmitting}
+											className="text-white disabled:cursor-not-allowed hover:bg-primary-hover cursor-pointer px-6 py-2 rounded-xl bg-primary transition-all"
+											whileHover={{ scale: 1.05 }}
+											whileTap={{ scale: 0.95 }}
 										>
-											Email Address
-										</Text>
-									}
-									name="email"
-									rules={[
-										{ required: true, message: "Please enter your email!" },
-										{ type: "email", message: "Please enter a valid email!" },
-									]}
-								>
-									<Input
-										id="email"
-										placeholder="you@example.com"
-										type="email"
-										className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</Form.Item>
-
-								<Form.Item
-									label={
-										<Text
-											strong
-											style={{
-												fontFamily: "sora",
-												fontSize: "0.875rem",
-												color: "#6B7280",
-												marginBottom: "0.5rem",
-											}}
-										>
-											Subject
-										</Text>
-									}
-									name="subject"
-									rules={[
-										{ required: true, message: "Please enter a subject!" },
-									]}
-								>
-									<Input
-										id="subject"
-										placeholder="Question about an event"
-										type="text"
-										className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</Form.Item>
-
-								<Form.Item
-									label={
-										<Text
-											strong
-											style={{
-												fontFamily: "sora",
-												fontSize: "0.875rem",
-												color: "#6B7280",
-												marginBottom: "0.5rem",
-											}}
-										>
-											Message
-										</Text>
-									}
-									name="message"
-								>
-									<Input.TextArea
-										id="message"
-										placeholder="Your message here..."
-										rows={5}
-										className="w-full  border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-									/>
-								</Form.Item>
-
-								<Form.Item className="text-right">
-									<button disabled={isSubmitting} className="text-white disabled:cursor-not-allowed hover:bg-primary-hover cursor-pointer hover:scale-105 duration-200 px-6 py-2 rounded-xl bg-primary transition-all">
-										Send Message
-									</button>
-								</Form.Item>
-							</Form>
-						</div>
-						<div>
-							<div className="p-8 pt-0 rounded-lg shadow-lg mb-8">
+											Send Message
+										</motion.button>
+									</Form.Item>
+								</Form>
+							</motion.div>
+						</motion.div>
+						<motion.div
+							ref={infoRef}
+							initial="hidden"
+							animate={infoInView ? "visible" : "hidden"}
+							variants={staggerContainer}
+						>
+							<motion.div
+								className="p-8 pt-0 rounded-lg shadow-lg mb-8"
+								variants={fadeUpSmall}
+							>
 								<h3 className="text-2xl font-bold text-primary mb-4">
 									Contact Information
 								</h3>
@@ -173,8 +206,11 @@ const Contact = () => {
 										<p>123 Mali Road, Sylhet City, 54321</p>
 									</div>
 								</div>
-							</div>
-							<div className="bg-surface-light dark:bg-surface-dark rounded-lg shadow-lg overflow-hidden">
+							</motion.div>
+							<motion.div
+								className="bg-surface-light dark:bg-surface-dark rounded-lg shadow-lg overflow-hidden"
+								variants={fadeUpSmall}
+							>
 								<div className="w-full h-64 bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
 									<iframe
 										allowFullScreen
@@ -187,8 +223,8 @@ const Contact = () => {
 										width={600}
 									/>
 								</div>
-							</div>
-						</div>
+							</motion.div>
+						</motion.div>
 					</div>
 				</div>
 			</section>

@@ -273,7 +273,6 @@ const ManageEvents = () => {
 				</div>
 			</div>
 
-			{/* Stats */}
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 				<div className="bg-green-50 p-4 rounded-lg border border-green-200">
 					<p className="text-sm text-gray-600">Total Events</p>
@@ -303,7 +302,6 @@ const ManageEvents = () => {
 				pagination={{ pageSize: 10, showSizeChanger: true }}
 			/>
 
-			{/* Create/Edit Modal */}
 			<Modal
 				title={editingEvent ? "Edit Event" : "Create New Event"}
 				open={isModalOpen}

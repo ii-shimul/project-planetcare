@@ -6,23 +6,30 @@ import useAuth from "../../hooks/useAuth";
 import { message, Select } from "antd";
 import { Event } from "../Home/Events";
 import Header from "../../components/Header/Header";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { SearchOutlined, ShareAltOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { Link } from "react-router-dom";
+import { motion, useInView } from "framer-motion";
+import {
+	staggerContainer,
+	fadeUp,
+	fadeUpSmall,
+	hoverLift,
+} from "../../animations";
 
 const Events = () => {
 	const axiosPublic = useAxios();
 	const { user } = useAuth();
+	const faqRef = useRef(null);
+	const faqInView = useInView(faqRef, { once: true, margin: "-50px" });
 
-	// Search and filter state
 	const [searchText, setSearchText] = useState("");
 	const [dateFilter, setDateFilter] = useState<"all" | "upcoming" | "past">(
 		"all",
 	);
 	const [locationFilter, setLocationFilter] = useState<string>("all");
 
-	// fetch events
 	const {
 		data: events = [],
 		isLoading,
@@ -35,21 +42,17 @@ const Events = () => {
 		},
 	});
 
-	// Get unique locations for filter dropdown
 	const locations = useMemo(() => {
 		const locs = events.map((e: Event) => e.location);
 		return [...new Set(locs)] as string[];
 	}, [events]);
 
-	// Filter events based on search and filters
 	const filteredEvents = useMemo(() => {
 		return events.filter((event: Event) => {
-			// Text search (title or location)
 			const matchesSearch =
 				event.title?.toLowerCase().includes(searchText.toLowerCase()) ||
 				event.location?.toLowerCase().includes(searchText.toLowerCase());
 
-			// Date filter
 			const eventDate = new Date(event.date);
 			const now = new Date();
 			let matchesDate = true;
@@ -59,7 +62,6 @@ const Events = () => {
 				matchesDate = eventDate < now;
 			}
 
-			// Location filter
 			const matchesLocation =
 				locationFilter === "all" || event.location === locationFilter;
 
@@ -67,7 +69,6 @@ const Events = () => {
 		});
 	}, [events, searchText, dateFilter, locationFilter]);
 
-	// function for handling volunteer registration
 	const handleVolunteerRegistration = async (id: string) => {
 		if (!user?.email) {
 			message.error("You have to login first!");
@@ -85,7 +86,6 @@ const Events = () => {
 		}
 	};
 
-	// function for handling unvolunteer
 	const handleUnvolunteer = async (id: string) => {
 		if (!user?.email) {
 			message.error("You have to login first!");
@@ -110,17 +110,32 @@ const Events = () => {
 				subtitle="Explore our upcoming events and take action to protect our planet.
 					Every small step matters"
 			/>
-			<div className="py-12 px-4 max-w-4xl mx-auto text-center">
-				<h2 className="text-3xl font-bold text-green-800">Why Participate?</h2>
-				<p className="mt-4 text-gray-700">
+			<motion.div
+				className="py-12 px-4 max-w-4xl mx-auto text-center"
+				initial="hidden"
+				animate="visible"
+				variants={staggerContainer}
+			>
+				<motion.h2
+					className="text-3xl font-bold text-green-800"
+					variants={fadeUp}
+				>
+					Why Participate?
+				</motion.h2>
+				<motion.p className="mt-4 text-gray-700" variants={fadeUp}>
 					Our events are designed to unite communities around the shared goal of
 					sustainability. Whether you're planting trees, cleaning rivers, or
 					raising awareness, your contribution directly supports a healthier
 					planet. Let's take action together!
-				</p>
-			</div>
+				</motion.p>
+			</motion.div>
 
-			<div className="mb-8 px-4 max-w-4xl mx-auto">
+			<motion.div
+				className="mb-8 px-4 max-w-4xl mx-auto"
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.5, delay: 0.3 }}
+			>
 				<div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
 					<div className="flex flex-col md:flex-row gap-4">
 						<div className="flex-1 relative">
@@ -166,9 +181,15 @@ const Events = () => {
 						</div>
 					)}
 				</div>
-			</div>
+			</motion.div>
 
-			<div className="grid md:grid-cols-3 gap-6 px-4 max-w-6xl mx-auto">
+			<motion.div
+				className="grid md:grid-cols-3 gap-6 px-4 max-w-6xl mx-auto"
+				initial="hidden"
+				animate="visible"
+				variants={staggerContainer}
+				key={isLoading ? "loading" : "loaded"}
+			>
 				{isLoading ?
 					Array(3)
 						.fill(null)
@@ -177,9 +198,11 @@ const Events = () => {
 						))
 				: filteredEvents.length > 0 ?
 					filteredEvents.map((event: Event) => (
-						<div
+						<motion.div
 							key={event._id}
-							className="flex flex-col bg-white rounded-xl shadow-sm border border-gray-300 hover:shadow-lg transition overflow-hidden"
+							className="flex flex-col bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden"
+							variants={fadeUpSmall}
+							whileHover={hoverLift}
 						>
 							<img
 								src={event.image || "/event-images/tree-planting.png"}
@@ -242,7 +265,7 @@ const Events = () => {
 									</Tooltip>
 								</div>
 							</div>
-						</div>
+						</motion.div>
 					))
 				:	<div className="col-span-3 text-center py-12 text-gray-500">
 						<p className="text-lg">No events found matching your criteria.</p>
@@ -258,14 +281,23 @@ const Events = () => {
 						</button>
 					</div>
 				}
-			</div>
+			</motion.div>
 
-			<div className="mt-20 py-12 bg-white px-4 max-w-5xl mx-auto">
-				<h2 className="text-3xl font-bold text-center text-green-800 mb-8">
+			<motion.div
+				className="mt-20 py-12 bg-white px-4 max-w-5xl mx-auto"
+				ref={faqRef}
+				initial="hidden"
+				animate={faqInView ? "visible" : "hidden"}
+				variants={staggerContainer}
+			>
+				<motion.h2
+					className="text-3xl font-bold text-center text-green-800 mb-8"
+					variants={fadeUp}
+				>
 					Frequently Asked Questions
-				</h2>
+				</motion.h2>
 				<div className="space-y-6">
-					<div>
+					<motion.div variants={fadeUpSmall}>
 						<h3 className="font-semibold text-lg text-green-700">
 							How can I register for an event?
 						</h3>
@@ -273,8 +305,8 @@ const Events = () => {
 							Click on the "Register to Volunteer" button under each event.
 							You'll be redirected to your dashboard if you're logged in.
 						</p>
-					</div>
-					<div>
+					</motion.div>
+					<motion.div variants={fadeUpSmall}>
 						<h3 className="font-semibold text-lg text-green-700">
 							Are the events free to join?
 						</h3>
@@ -282,8 +314,8 @@ const Events = () => {
 							Yes! All our events are community-driven and completely free to
 							join.
 						</p>
-					</div>
-					<div>
+					</motion.div>
+					<motion.div variants={fadeUpSmall}>
 						<h3 className="font-semibold text-lg text-green-700">
 							Can I suggest an event?
 						</h3>
@@ -291,9 +323,9 @@ const Events = () => {
 							Absolutely. Contact us via the contact page or email us directly
 							with your proposal.
 						</p>
-					</div>
+					</motion.div>
 				</div>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

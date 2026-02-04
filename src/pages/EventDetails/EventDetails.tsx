@@ -6,6 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import { message, Skeleton, Input, Button, Avatar } from "antd";
 import { UserOutlined, DeleteOutlined, SendOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { staggerContainer, fadeUp, fadeUpSmall } from "../../animations";
 
 const defaultImage = "/event-images/tree-planting.png";
 
@@ -38,7 +40,6 @@ const EventDetails = () => {
 		},
 	});
 
-	// Fetch comments
 	const { data: comments = [], isLoading: commentsLoading } = useQuery({
 		queryKey: ["comments", id],
 		queryFn: async () => {
@@ -47,7 +48,6 @@ const EventDetails = () => {
 		},
 	});
 
-	// Add comment mutation
 	const addCommentMutation = useMutation({
 		mutationFn: async (content: string) => {
 			const res = await axiosPublic.post("/comments", {
@@ -69,7 +69,6 @@ const EventDetails = () => {
 		},
 	});
 
-	// Delete comment mutation
 	const deleteCommentMutation = useMutation({
 		mutationFn: async (commentId: string) => {
 			await axiosPublic.delete(`/comments/${commentId}`, {
@@ -85,7 +84,6 @@ const EventDetails = () => {
 		},
 	});
 
-	// function for handling volunteer registration
 	const handleVolunteerRegistration = async () => {
 		if (!user?.email) {
 			message.error("You have to login first!");
@@ -103,7 +101,6 @@ const EventDetails = () => {
 		}
 	};
 
-	// function for handling unvolunteer
 	const handleUnvolunteer = async () => {
 		if (!user?.email) {
 			message.error("You have to login first!");
@@ -143,16 +140,24 @@ const EventDetails = () => {
 	}
 
 	return (
-		<section className="max-w-4xl mx-auto px-4 py-10 mt-4 md:mt-10">
-			<div className="rounded-xl overflow-hidden mb-6">
+		<motion.section
+			className="max-w-4xl mx-auto px-4 py-10 mt-4 md:mt-10"
+			initial="hidden"
+			animate="visible"
+			variants={staggerContainer}
+		>
+			<motion.div className="rounded-xl overflow-hidden mb-6" variants={fadeUp}>
 				<img
 					src={event.image || defaultImage}
 					alt={event.title}
 					className="w-full h-64 md:h-80 object-cover"
 				/>
-			</div>
+			</motion.div>
 
-			<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8">
+			<motion.div
+				className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8"
+				variants={fadeUp}
+			>
 				<h1 className="text-3xl font-bold text-green-700 mb-2">
 					{event.title}
 				</h1>
@@ -175,7 +180,7 @@ const EventDetails = () => {
 					</p>
 				</div>
 
-				<button
+				<motion.button
 					onClick={
 						event?.volunteers?.includes(user?.email || "") ?
 							handleUnvolunteer
@@ -186,14 +191,19 @@ const EventDetails = () => {
 							"bg-red-500 hover:bg-red-600 text-white"
 						:	"bg-green-600 hover:bg-green-700 text-white"
 					}`}
+					whileHover={{ scale: 1.02 }}
+					whileTap={{ scale: 0.98 }}
 				>
 					{event?.volunteers?.includes(user?.email || "") ?
 						"Unvolunteer"
 					:	"Volunteer for this Event"}
-				</button>
-			</div>
+				</motion.button>
+			</motion.div>
 
-			<div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 mt-6">
+			<motion.div
+				className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 mt-6"
+				variants={fadeUp}
+			>
 				<h2 className="text-xl font-bold text-gray-800 mb-4">
 					Discussion ({comments.length})
 				</h2>
@@ -228,11 +238,17 @@ const EventDetails = () => {
 				{commentsLoading ?
 					<Skeleton active paragraph={{ rows: 3 }} />
 				: comments.length > 0 ?
-					<div className="space-y-4">
+					<motion.div
+						className="space-y-4"
+						initial="hidden"
+						animate="visible"
+						variants={staggerContainer}
+					>
 						{comments.map((comment: Comment) => (
-							<div
+							<motion.div
 								key={comment._id}
 								className="flex gap-3 p-4 bg-gray-50 rounded-lg"
+								variants={fadeUpSmall}
 							>
 								<Avatar
 									src={comment.userPhoto}
@@ -263,15 +279,15 @@ const EventDetails = () => {
 									</div>
 									<p className="text-gray-700 mt-1">{comment.content}</p>
 								</div>
-							</div>
+							</motion.div>
 						))}
-					</div>
+					</motion.div>
 				:	<p className="text-gray-500 text-center py-8">
 						No comments yet. Be the first to share your thoughts!
 					</p>
 				}
-			</div>
-		</section>
+			</motion.div>
+		</motion.section>
 	);
 };
 

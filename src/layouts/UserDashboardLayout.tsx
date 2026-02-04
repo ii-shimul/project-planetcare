@@ -58,7 +58,6 @@ const UserDashboardLayout = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	return (
 		<Layout style={{ minHeight: "100vh" }}>
-			{/* Sidebar */}
 			<Sider
 				collapsible
 				collapsed={collapsed}
@@ -88,7 +87,6 @@ const UserDashboardLayout = () => {
 			</Sider>
 
 			<Layout>
-				{/* Header */}
 				<Header
 					style={{
 						backgroundColor: "#fff",
@@ -106,7 +104,6 @@ const UserDashboardLayout = () => {
 					</Title>
 				</Header>
 
-				{/* Content */}
 				<Content style={{ margin: "16px 16px", backgroundColor: "#f0f2f5" }}>
 					<div
 						style={{ padding: 16, backgroundColor: "#ffff", borderRadius: 8 }}

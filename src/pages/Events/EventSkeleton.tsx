@@ -1,41 +1,40 @@
-import { Card, Skeleton } from "antd";
-import React from "react";
+import { Skeleton } from "antd";
 
 const EventSkeleton: React.FC<{ index: number }> = ({ index }) => (
-	<Card
+	<div
 		key={index}
-		bordered
-		style={{
-			padding: "24px",
-			borderRadius: "12px",
-			borderColor: "#d9d9d9",
-			boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-		}}
-		bodyStyle={{ padding: 0, display: "flex", flexDirection: "column" }}
+		className="flex flex-col bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden"
 	>
-		<Skeleton
+		<Skeleton.Image
 			active
-			paragraph={{ rows: 1, width: "75%" }}
-			title={false}
-			style={{ marginBottom: "8px" }}
+			style={{ width: "100%", height: 192 }}
+			className="!w-full !h-48"
 		/>
-		<Skeleton
-			active
-			paragraph={{ rows: 1, width: "100%" }}
-			title={false}
-			style={{ marginBottom: "16px" }}
-		/>
-		<div style={{ flexGrow: 1, marginBottom: "16px" }}>
+		<div className="p-6 flex flex-col grow">
 			<Skeleton
 				active
-				paragraph={{ rows: 1, width: "66%" }}
-				title={false}
-				style={{ marginBottom: "8px" }}
+				paragraph={false}
+				title={{ width: "60%" }}
+				className="!mb-2"
 			/>
-			<Skeleton active paragraph={{ rows: 1, width: "66%" }} title={false} />
+			<Skeleton
+				active
+				paragraph={{ rows: 2, width: ["100%", "85%"] }}
+				title={false}
+				className="!mt-2"
+			/>
+			<div className="mt-4 space-y-1 grow">
+				<Skeleton active paragraph={{ rows: 1, width: "50%" }} title={false} />
+				<Skeleton active paragraph={{ rows: 1, width: "45%" }} title={false} />
+				<Skeleton active paragraph={{ rows: 1, width: "35%" }} title={false} />
+			</div>
+			<div className="mt-4 flex gap-2">
+				<Skeleton.Button active style={{ width: 70, height: 38 }} />
+				<Skeleton.Button active style={{ flex: 1, height: 38 }} />
+				<Skeleton.Button active style={{ width: 44, height: 38 }} />
+			</div>
 		</div>
-		<Skeleton active paragraph={{ rows: 1, width: "100%" }} title={false} />
-	</Card>
+	</div>
 );
 
 export default EventSkeleton;

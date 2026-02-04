@@ -2,17 +2,27 @@ import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 import type { Event } from "../../pages/Home/Events";
+import { motion } from "framer-motion";
+import { hoverLiftLarge, hoverImageZoom, transitions } from "../../animations";
 
 const defaultImage = "/event-images/tree-planting.png";
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
 	return (
-		<div className="border rounded-2xl bg-white border-gray-300 overflow-hidden hover:shadow-lg transition">
-			<img
-				src={event.image || defaultImage}
-				alt={event.title}
-				className="w-full h-48 object-cover"
-			/>
+		<motion.div
+			className="border rounded-2xl bg-white border-gray-300 overflow-hidden"
+			whileHover={hoverLiftLarge}
+			initial={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)" }}
+		>
+			<div className="overflow-hidden">
+				<motion.img
+					src={event.image || defaultImage}
+					alt={event.title}
+					className="w-full h-48 object-cover"
+					whileHover={hoverImageZoom}
+					transition={transitions.smooth}
+				/>
+			</div>
 			<div className="p-5 space-y-2">
 				<h1 className="text-xl font-semibold">{event.title}</h1>
 				<p className="text-gray-600 text-sm line-clamp-2">
@@ -30,7 +40,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
 					</Link>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

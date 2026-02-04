@@ -1,14 +1,35 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { staggerContainer, fadeUp, hoverLift } from "../../animations";
+
 const Testimonials = () => {
+	const ref = useRef(null);
+	const isInView = useInView(ref, { once: true, margin: "-50px" });
+
 	return (
-		<section className="py-20 bg-surface-light dark:bg-surface-dark">
+		<section className="py-20 bg-surface-light dark:bg-surface-dark" ref={ref}>
 			<div className="max-w-7xl mx-auto px-6">
-				<div className="text-center mb-12">
+				<motion.div
+					className="text-center mb-12"
+					initial={{ opacity: 0, y: 20 }}
+					animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+					transition={{ duration: 0.5 }}
+				>
 					<h2 className="text-4xl font-bold text-primary">
 						What Our Volunteers Say
 					</h2>
-				</div>
-				<div className="grid md:grid-cols-2 gap-8">
-					<div className="bg-background-light p-8 rounded-lg shadow-md">
+				</motion.div>
+				<motion.div
+					className="grid md:grid-cols-2 gap-8"
+					variants={staggerContainer}
+					initial="hidden"
+					animate={isInView ? "visible" : "hidden"}
+				>
+					<motion.div
+						className="bg-background-light p-8 rounded-lg shadow-md"
+						variants={fadeUp}
+						whileHover={hoverLift}
+					>
 						<p className="text-subtext-light italic">
 							"Being part of PlanetCare has been a truly rewarding experience.
 							I've met amazing people and learned so much about how I can make a
@@ -29,8 +50,12 @@ const Testimonials = () => {
 								</p>
 							</div>
 						</div>
-					</div>
-					<div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md">
+					</motion.div>
+					<motion.div
+						className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md"
+						variants={fadeUp}
+						whileHover={hoverLift}
+					>
 						<p className="text-subtext-light italic">
 							"I never realized how much waste ends up on our beaches until I
 							joined a cleanup. It was eye-opening. PlanetCare makes it easy and
@@ -51,10 +76,19 @@ const Testimonials = () => {
 								</p>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div className="grid md:grid-cols-2 gap-8 mt-8">
-					<div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md">
+					</motion.div>
+				</motion.div>
+				<motion.div
+					className="grid md:grid-cols-2 gap-8 mt-8"
+					variants={staggerContainer}
+					initial="hidden"
+					animate={isInView ? "visible" : "hidden"}
+				>
+					<motion.div
+						className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md"
+						variants={fadeUp}
+						whileHover={hoverLift}
+					>
 						<p className="text-subtext-light italic">
 							"Transparency is key for me when I donate. PlanetCare provides
 							detailed reports on how every dollar is spent, which gives me huge
@@ -71,8 +105,12 @@ const Testimonials = () => {
 								<p className="text-sm text-subtext-light">Donor since 2021</p>
 							</div>
 						</div>
-					</div>
-					<div className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md">
+					</motion.div>
+					<motion.div
+						className="bg-background-light dark:bg-background-dark p-8 rounded-lg shadow-md"
+						variants={fadeUp}
+						whileHover={hoverLift}
+					>
 						<p className="text-subtext-light italic">
 							"The educational workshops was fantastic! My kids learned so much
 							about recycling and composting. We've started our own garden
@@ -89,8 +127,8 @@ const Testimonials = () => {
 								<p className="text-sm text-subtext-light">Community Member</p>
 							</div>
 						</div>
-					</div>
-				</div>
+					</motion.div>
+				</motion.div>
 			</div>
 		</section>
 	);

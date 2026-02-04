@@ -107,7 +107,6 @@ const Overview = () => {
 				Dashboard Overview
 			</h2>
 
-			{/* Stats Cards */}
 			<Row gutter={[16, 16]} className="mb-8">
 				<Col xs={24} sm={12} lg={6}>
 					<Card>
@@ -152,7 +151,6 @@ const Overview = () => {
 				</Col>
 			</Row>
 
-			{/* Quick Stats Summary */}
 			<Row gutter={[16, 16]} className="mb-8">
 				<Col xs={24} lg={12}>
 					<Card title="User Distribution" className="h-full">
@@ -223,7 +221,6 @@ const Overview = () => {
 				</Col>
 			</Row>
 
-			{/* Recent Data Tables */}
 			<Row gutter={[16, 16]}>
 				<Col xs={24} lg={12}>
 					<Card title="Recent Events">

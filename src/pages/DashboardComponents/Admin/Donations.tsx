@@ -152,7 +152,6 @@ const Donations = () => {
 				Donation Management
 			</h2>
 
-			{/* Stats Cards */}
 			<Row gutter={[16, 16]} className="mb-6">
 				<Col xs={24} sm={12} lg={6}>
 					<Card>
@@ -199,7 +198,6 @@ const Donations = () => {
 				</Col>
 			</Row>
 
-			{/* Donation Breakdown */}
 			<Row gutter={[16, 16]} className="mb-6">
 				<Col xs={24} lg={12}>
 					<Card title="Monthly Trend" className="h-full">
@@ -286,7 +284,6 @@ const Donations = () => {
 				</Col>
 			</Row>
 
-			{/* Filters */}
 			<div className="flex flex-wrap gap-4 mb-6">
 				<Input
 					placeholder="Search by email..."
@@ -302,7 +299,6 @@ const Donations = () => {
 				/>
 			</div>
 
-			{/* Donations Table */}
 			<Table
 				dataSource={filteredDonations}
 				columns={columns}

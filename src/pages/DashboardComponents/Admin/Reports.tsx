@@ -195,7 +195,6 @@ const Reports = () => {
 				Reports & Analytics
 			</h2>
 
-			{/* Key Metrics */}
 			<Row gutter={[16, 16]} className="mb-6">
 				<Col xs={24} sm={12} lg={6}>
 					<Card>
@@ -262,7 +261,6 @@ const Reports = () => {
 				</Col>
 			</Row>
 
-			{/* Charts */}
 			<Row gutter={[16, 16]} className="mb-6">
 				<Col xs={24} lg={12}>
 					<Card title="Monthly Growth Overview" className="h-full">
@@ -334,7 +332,6 @@ const Reports = () => {
 				</Col>
 			</Row>
 
-			{/* Top Events */}
 			<Card
 				title={
 					<span>

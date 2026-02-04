@@ -143,7 +143,6 @@ const UserOverview = () => {
 				Welcome, {user?.displayName || "User"}!
 			</h2>
 
-			{/* Stats */}
 			<Row gutter={[16, 16]} className="mb-6">
 				<Col xs={24} sm={8}>
 					<Card>
@@ -178,7 +177,6 @@ const UserOverview = () => {
 				</Col>
 			</Row>
 
-			{/* Recent Activity */}
 			<Row gutter={[16, 16]}>
 				<Col xs={24} lg={12}>
 					<Card title="My Volunteered Events" className="h-full">

@@ -3,6 +3,8 @@ import { Card, Avatar, Skeleton } from "antd";
 import { TrophyOutlined, UserOutlined } from "@ant-design/icons";
 import useAxios from "../../hooks/useAxios";
 import Header from "../../components/Header/Header";
+import { motion } from "framer-motion";
+import { staggerContainer, fadeUp, fadeUpSmall } from "../../animations";
 
 type LeaderboardEntry = {
 	email: string;
@@ -23,17 +25,10 @@ const Leaderboard = () => {
 	});
 
 	const getMedalColor = (index: number) => {
-		if (index === 0) return "#FFD700"; // Gold
-		if (index === 1) return "#C0C0C0"; // Silver
-		if (index === 2) return "#CD7F32"; // Bronze
-		return "#21764C"; // Green
-	};
-
-	const getMedalEmoji = (index: number) => {
-		if (index === 0) return "🥇";
-		if (index === 1) return "🥈";
-		if (index === 2) return "🥉";
-		return `#${index + 1}`;
+		if (index === 0) return "#FFD700";
+		if (index === 1) return "#C0C0C0";
+		if (index === 2) return "#CD7F32";
+		return "#21764C";
 	};
 
 	return (
@@ -45,13 +40,25 @@ const Leaderboard = () => {
 
 			<section className="max-w-2xl mx-auto px-4 py-10">
 				<Card className="shadow-lg">
-					<div className="text-center mb-6">
-						<TrophyOutlined className="text-5xl text-yellow-500 mb-2" />
-						<h2 className="text-2xl font-bold text-gray-800">Top Volunteers</h2>
-						<p className="text-gray-500">
+					<motion.div
+						className="text-center mb-6"
+						initial="hidden"
+						animate="visible"
+						variants={staggerContainer}
+					>
+						<motion.div variants={fadeUp}>
+							<TrophyOutlined className="text-5xl text-yellow-500 mb-2" />
+						</motion.div>
+						<motion.h2
+							className="text-2xl font-bold text-gray-800"
+							variants={fadeUp}
+						>
+							Top Volunteers
+						</motion.h2>
+						<motion.p className="text-gray-500" variants={fadeUp}>
 							Our most dedicated volunteers making a difference
-						</p>
-					</div>
+						</motion.p>
+					</motion.div>
 
 					{isLoading ?
 						<div className="space-y-4">
@@ -60,17 +67,22 @@ const Leaderboard = () => {
 							))}
 						</div>
 					: leaderboard.length > 0 ?
-						<div className="space-y-3">
+						<motion.div
+							className="space-y-3"
+							initial="hidden"
+							animate="visible"
+							variants={staggerContainer}
+						>
 							{leaderboard.map((entry: LeaderboardEntry, index: number) => (
-								<div
+								<motion.div
 									key={entry.email}
 									className={`flex items-center gap-3 p-3 rounded-lg transition ${
 										index < 3 ?
 											"bg-gradient-to-r from-yellow-50 to-transparent border border-yellow-200"
 										:	"bg-gray-50 hover:bg-gray-100"
 									}`}
+									variants={fadeUpSmall}
 								>
-									{/* Rank */}
 									<div
 										className="w-10 h-10 flex items-center justify-center rounded-full font-bold text-lg"
 										style={{
@@ -84,7 +96,6 @@ const Leaderboard = () => {
 										:	<span className="text-sm">{index + 1}</span>}
 									</div>
 
-									{/* Avatar */}
 									<Avatar
 										size={48}
 										src={entry.photo}
@@ -94,7 +105,6 @@ const Leaderboard = () => {
 										}}
 									/>
 
-									{/* Name & Email */}
 									<div className="flex-1 min-w-0">
 										<p className="font-semibold text-gray-800 truncate">
 											{entry.name}
@@ -104,7 +114,6 @@ const Leaderboard = () => {
 										</p>
 									</div>
 
-									{/* Event Count */}
 									<div className="text-right">
 										<p
 											className="text-xl font-bold"
@@ -116,9 +125,9 @@ const Leaderboard = () => {
 											{entry.eventCount === 1 ? "event" : "events"}
 										</p>
 									</div>
-								</div>
+								</motion.div>
 							))}
-						</div>
+						</motion.div>
 					:	<div className="text-center py-12 text-gray-500">
 							<p>No volunteers yet. Be the first to join an event!</p>
 						</div>

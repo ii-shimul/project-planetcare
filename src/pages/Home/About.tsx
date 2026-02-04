@@ -1,20 +1,45 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import {
+	staggerContainer,
+	fadeUpLarge,
+	cardReveal,
+	hoverLift,
+} from "../../animations";
+
 const About = () => {
+	const ref = useRef(null);
+	const isInView = useInView(ref, { once: true, margin: "-100px" });
+
 	return (
 		<section
 			className="py-20 bg-background-light dark:bg-background-dark"
 			id="about"
+			ref={ref}
 		>
-			<div className="max-w-7xl mx-auto px-6">
-				<div className="text-center mb-12">
+			<motion.div
+				className="max-w-7xl mx-auto px-6"
+				variants={staggerContainer}
+				initial="hidden"
+				animate={isInView ? "visible" : "hidden"}
+			>
+				<motion.div className="text-center mb-12" variants={fadeUpLarge}>
 					<h2 className="text-4xl font-bold text-primary">About Us</h2>
 					<p className="text-lg text-subtext-light dark:text-subtext-dark mt-4 max-w-3xl mx-auto">
 						We're a mission-driven organization dedicated to sustainability,
 						climate action, and community engagement. Our goal is to protect
 						nature through meaningful events.
 					</p>
-				</div>
-				<div className="grid md:grid-cols-3 gap-8 text-center">
-					<div className="p-8 bg-surface-light dark:bg-surface-dark rounded-lg shadow-md">
+				</motion.div>
+				<motion.div
+					className="grid md:grid-cols-3 gap-8 text-center"
+					variants={staggerContainer}
+				>
+					<motion.div
+						className="p-8 bg-surface-light dark:bg-surface-dark rounded-lg shadow-md"
+						variants={cardReveal}
+						whileHover={hoverLift}
+					>
 						<span className="material-icons text-primary !text-5xl mb-4">
 							eco
 						</span>
@@ -25,8 +50,12 @@ const About = () => {
 							To inspire and empower individuals and communities to take
 							meaningful action for a sustainable future.
 						</p>
-					</div>
-					<div className="p-8 bg-surface-light dark:bg-surface-dark rounded-lg shadow-md">
+					</motion.div>
+					<motion.div
+						className="p-8 bg-surface-light dark:bg-surface-dark rounded-lg shadow-md"
+						variants={cardReveal}
+						whileHover={hoverLift}
+					>
 						<span className="material-icons text-primary !text-5xl mb-4">
 							groups
 						</span>
@@ -37,8 +66,12 @@ const About = () => {
 							A passionate network of volunteers, partners, and supporters
 							working together for environmental change.
 						</p>
-					</div>
-					<div className="p-8 bg-surface-light dark:bg-surface-dark rounded-lg shadow-md">
+					</motion.div>
+					<motion.div
+						className="p-8 bg-surface-light dark:bg-surface-dark rounded-lg shadow-md"
+						variants={cardReveal}
+						whileHover={hoverLift}
+					>
 						<span className="material-icons text-primary !text-5xl mb-4">
 							trending_up
 						</span>
@@ -49,10 +82,13 @@ const About = () => {
 							A thriving planet where nature and humanity coexist in harmony,
 							supported by sustainable practices.
 						</p>
-					</div>
-				</div>
+					</motion.div>
+				</motion.div>
 
-				<div className="mt-16 bg-white p-8 rounded-2xl shadow-sm text-left">
+				<motion.div
+					className="mt-16 bg-white p-8 rounded-2xl shadow-sm text-left"
+					variants={fadeUpLarge}
+				>
 					<h3 className="text-2xl font-bold text-primary mb-4">
 						Why We Started
 					</h3>
@@ -68,8 +104,8 @@ const About = () => {
 						directed towards tangible, measurable outcomes that benefit both
 						people and the planet.
 					</p>
-				</div>
-			</div>
+				</motion.div>
+			</motion.div>
 		</section>
 	);
 };
